@@ -1,0 +1,87 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<!--
+		Civil 3D Template - a minimal Civil 3D plug-in.
+
+		Target: Civil 3D 2025 (AutoCAD 2025 engine, .NET 8).
+		To target another Civil 3D release, see "Targeting a newer Civil 3D version" in README.md.
+		In most cases you only need to change C3DVersion below and the path in Properties\launchSettings.json.
+	-->
+
+	<PropertyGroup>
+		<!-- Civil 3D / AutoCAD release year used for all reference paths -->
+		<C3DVersion>2025</C3DVersion>
+		<AcadDir>C:\Program Files\Autodesk\AutoCAD $(C3DVersion)\</AcadDir>
+
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<OutputType>Library</OutputType>
+		<AssemblyName>Civil3DTemplate</AssemblyName>
+		<RootNamespace>Civil3DTemplate</RootNamespace>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<UseWPF>true</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+		<Nullable>enable</Nullable>
+		<PlatformTarget>x64</PlatformTarget>
+	</PropertyGroup>
+
+	<!-- Autodesk references (Private=False: they are provided by Civil 3D at runtime, never copied) -->
+	<ItemGroup>
+		<Reference Include="acmgd">
+			<HintPath>$(AcadDir)acmgd.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="acdbmgd">
+			<HintPath>$(AcadDir)acdbmgd.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="accoremgd">
+			<HintPath>$(AcadDir)accoremgd.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="AcWindows">
+			<HintPath>$(AcadDir)AcWindows.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="AdWindows">
+			<HintPath>$(AcadDir)AdWindows.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<!-- Civil 3D API (not used by the template itself, ready for your own commands) -->
+		<Reference Include="AecBaseMgd">
+			<HintPath>$(AcadDir)ACA\AecBaseMgd.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="AeccDbMgd">
+			<HintPath>$(AcadDir)C3D\AeccDbMgd.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Civil3DTemplate.bundle\PackageContents.xml">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\Message_32.png" />
+	</ItemGroup>
+
+	<!--
+		After every build, deploy the plug-in as an Autodesk bundle.
+		Civil 3D loads every bundle in this folder automatically at start-up, so the plug-in
+		is also available when Civil 3D is opened in the ordinary way (without Visual Studio).
+	-->
+	<Target Name="DeployBundle" AfterTargets="Build">
+		<PropertyGroup>
+			<PluginRoot>C:\ProgramData\Autodesk\ApplicationPlugins\Civil3DTemplate.bundle\</PluginRoot>
+			<PluginTargetDir>$(PluginRoot)Contents\</PluginTargetDir>
+		</PropertyGroup>
+
+		<MakeDir Directories="$(PluginTargetDir)" />
+		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PluginTargetDir)" SkipUnchangedFiles="false" />
+		<Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(PluginTargetDir)" SkipUnchangedFiles="false" Condition="Exists('$(TargetDir)$(TargetName).pdb')" />
+		<Copy SourceFiles="$(MSBuildProjectDirectory)\Civil3DTemplate.bundle\PackageContents.xml" DestinationFolder="$(PluginRoot)" SkipUnchangedFiles="false" />
+	</Target>
+
+</Project>

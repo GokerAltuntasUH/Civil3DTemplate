@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApplicationPackage
+    SchemaVersion="1.0"
+    AppVersion="1.0.0"
+    ProductType="Application"
+    Name="Civil 3D Template"
+    Description="Template plug-in for Civil 3D"
+    AppName="Civil3DTemplate"
+    Author="The Developer"
+    AutodeskProduct="Civil3D"
+    ProductCode="{74DC918B-1CF8-42D1-9B23-2488F42248FF}"
+    ProductVersion="1.0">
+
+	<CompanyDetails Name="The Developer" />
+	<Components>
+		<!-- R25.0 = 2025, R25.1 = 2026 (both .NET 8). Civil 3D 2027 is R26.x (.NET 10): see README.md -->
+		<RuntimeRequirements OS="Win64" Platform="AutoCAD*" SeriesMin="R25.0" SeriesMax="R25.9" />
+		<ComponentEntry AppName="Civil3DTemplate" ModuleName="./Contents/Civil3DTemplate.dll" LoadOnAutoCADStartup="True" />
+	</Components>
+</ApplicationPackage>
