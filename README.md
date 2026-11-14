@@ -1,6 +1,6 @@
 # Civil 3D Template
 
-A minimal starting point for a Civil 3D plug-in written in C#. It adds a **My Project** ribbon tab with a single **Show Message** button, which writes a message to the Civil 3D command line (command: `SHOW_MESSAGE`).
+A minimal starting point for a Civil 3D plug-in written in C#. It adds a **My Project** ribbon tab with a single **Show Message** button, which opens a message window (command: `SHOW_MESSAGE`).
 
 ## Requirements
 
@@ -33,6 +33,19 @@ To use the Civil 3D API in your own commands, add references to `C3D\AeccDbMgd.d
 3. Because the plug-in is installed as an Autodesk bundle, it is also available when Civil 3D is opened in the ordinary way.
 
 > Close Civil 3D before building: while it is running, the DLL is locked and the copy step fails.
+
+## Opening the project
+
+Open **`Civil3DTemplate.sln`** (double-click it, or **File > Open > Project/Solution**), not the folder. The green start button should read **Civil3DTemplate**. If it reads **Select Startup Item...**, Visual Studio is in folder view: use **File > Close Folder** and open the `.sln` instead.
+
+## Adding your own command
+
+1. **Command**: add a class in `src/Commands` (right-click > Add > Class) with a method marked `[CommandMethod("MY_COMMAND")]`. Use `ShowMessage.cs` as the model. Command names must be unique; a project prefix such as `MP_` avoids clashes with Civil 3D commands.
+2. **Button (optional)**: in `application.cs`, copy the `showMessageButton` block, change `Text`, `Id` and the command name in `RibbonCommandHandler("MY_COMMAND")`, and add it with `generalPanelSource.Items.Add(...)`.
+3. **Icon (optional)**: put a 32x32 PNG in `Resources`, set its Build Action to **Embedded Resource**, and load it with `LoadPngFromResources("Civil3DTemplate.Resources.<FileName>.png")`.
+4. Close Civil 3D, build, and start with F5.
+
+The setup guide (PDF) contains a complete worked example (`SHOW_DRAWING_NAME`).
 
 ## Targeting a newer Civil 3D version
 
