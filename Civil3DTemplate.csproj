@@ -22,9 +22,19 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<Nullable>enable</Nullable>
 		<PlatformTarget>x64</PlatformTarget>
+		<!-- Do not copy any referenced assemblies or NuGet dependencies to the output folder -->
+		<CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
 	</PropertyGroup>
 
-	<!-- Autodesk references (Private=False: they are provided by Civil 3D at runtime, never copied) -->
+	<!--
+		Autodesk references.
+		These DLLs are licensed Autodesk files: they are only referenced from the local Civil 3D
+		installation and must never be copied into the build output or the repository.
+		Private=False keeps them out of bin\ and out of the deployed bundle; Civil 3D provides them at runtime.
+		Only the references needed by the template are included. To use the Civil 3D API in your own
+		commands, add the same kind of entry for $(AcadDir)C3D\AeccDbMgd.dll (and $(AcadDir)ACA\AecBaseMgd.dll),
+		always with <Private>False</Private>.
+	-->
 	<ItemGroup>
 		<Reference Include="acmgd">
 			<HintPath>$(AcadDir)acmgd.dll</HintPath>
@@ -44,15 +54,6 @@
 		</Reference>
 		<Reference Include="AdWindows">
 			<HintPath>$(AcadDir)AdWindows.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<!-- Civil 3D API (not used by the template itself, ready for your own commands) -->
-		<Reference Include="AecBaseMgd">
-			<HintPath>$(AcadDir)ACA\AecBaseMgd.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="AeccDbMgd">
-			<HintPath>$(AcadDir)C3D\AeccDbMgd.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>

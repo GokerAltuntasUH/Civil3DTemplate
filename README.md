@@ -8,6 +8,12 @@ A minimal starting point for a Civil 3D plug-in written in C#. It adds a **My Pr
 - Autodesk Civil 3D 2025 (installed and licensed)
 - Visual Studio Community 2022 (17.8 or later) or newer, with the **.NET desktop development** workload (includes the .NET 8 SDK)
 
+## Autodesk files
+
+The project references a few Autodesk DLLs (`acmgd`, `acdbmgd`, `accoremgd`, `AcWindows`, `AdWindows`) directly from the local Civil 3D installation. They are licensed Autodesk files and are **not** part of this repository or the build output: every reference uses `<Private>False</Private>`, and `.gitignore` excludes all `*.dll` files. Civil 3D must be installed on the computer to build the project.
+
+To use the Civil 3D API in your own commands, add references to `C3D\AeccDbMgd.dll` (and `ACA\AecBaseMgd.dll`) from the same installation folder, again with `<Private>False</Private>`.
+
 ## Project structure
 
 | File | Purpose |
@@ -43,4 +49,4 @@ A minimal starting point for a Civil 3D plug-in written in C#. It adds a **My Pr
 4. In `Civil3DTemplate.bundle/PackageContents.xml`, change `SeriesMin="R25.0" SeriesMax="R25.9"` to `SeriesMin="R26.0" SeriesMax="R26.9"`.
 5. Use a Visual Studio version that includes the .NET 10 SDK (Visual Studio 2026).
 
-If a reference shows a yellow warning icon in Solution Explorer, check that the DLL exists at the path in `Civil3DTemplate.csproj` on your machine.
+If a reference shows a yellow warning icon in Solution Explorer, check that the DLL exists at the path in `Civil3DTemplate.csproj` on your computer.

@@ -388,3 +388,9 @@ FodyWeavers.xsd
 .env.test.local
 .env.production.local 
 /bin
+
+
+# Never commit binaries (Autodesk DLLs are licensed and must not be redistributed)
+*.dll
+*.pdb
+*.exe
