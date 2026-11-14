@@ -63,3 +63,15 @@ The setup guide (PDF) contains a complete worked example (`SHOW_DRAWING_NAME`).
 5. Use a Visual Studio version that includes the .NET 10 SDK (Visual Studio 2026).
 
 If a reference shows a yellow warning icon in Solution Explorer, check that the DLL exists at the path in `Civil3DTemplate.csproj` on your computer.
+
+## Similar examples
+
+Other templates and references for Civil 3D / AutoCAD .NET plug-ins:
+
+- [AutoCAD .NET Wizards](https://github.com/ADN-DevTech/AutoCAD-Net-Wizards) by Autodesk's developer team: a Visual Studio extension that adds AutoCAD project templates (C# and VB) for AutoCAD 2025 on .NET 8, with launch profiles for Civil 3D.
+- [AutoCAD C# Project Template](https://github.com/gileCAD/AutoCAD-Csharp-Project-Template) by gileCAD: Visual Studio templates for AutoCAD versions before 2025 (.NET Framework 4.8), 2025–2026 (.NET 8) and 2027+ (.NET 10), including a template that builds for all three.
+- [Civil 3D Project Template for Visual Studio](https://blog.autodesk.io/civil-3d-project-template-for-visual-studio/) on the Autodesk developer blog: an early Civil 3D template (2015) with the same bundle-deployment approach used here.
+- [Creating New Civil 3D .NET Plugins](https://help.autodesk.com/cloudhelp/2025/ENU/Civil3D-DevGuide/files/GUID-04C3877E-4B9D-4CC2-B7A5-9301B6BCE21A.htm) in the Civil 3D Developer's Guide: Autodesk's step-by-step instructions for setting up a project by hand.
+- [Creating a Civil 3D plug-in with a custom ribbon tab and buttons](https://forums.autodesk.com/t5/net-forum/creating-civil-3d-plugin-with-custom-ribbon-tab-and-buttons/m-p/13112959) on the Autodesk .NET forum: a discussion of the ribbon approach used in `application.cs`.
+
+This template differs mainly in that it combines a ready-made ribbon button with automatic loading via the Autodesk ApplicationPlugins folder.
